@@ -154,3 +154,14 @@ exports.addSendResume = async (resumeId, userId, recruitersId) => {
     const sqlParams = [resumeId, userId, recruitersId];
     return await db.query(sql, sqlParams);
 };
+
+exports.uploadAvatar = async (userId, filePath) => {
+    const sql = `
+        INSERT INTO
+            user_basic_table (user_id,user_avatar) 
+        VALUES
+            (?, ?)
+    `;
+    const sqlParams = [userId, filePath];
+    return await db.query(sql, sqlParams);
+};

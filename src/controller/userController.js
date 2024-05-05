@@ -55,3 +55,8 @@ router.post('/addSendResume', async (req, res, next) => {
     const result = await userService.addSendResume(req.body.resumeId, req.body.userId, req.body.recruitersId);
     res.ResultVO(0, '成功', result);
 });
+//头像上传
+router.post('/uploadAvatar', async (req, res, next) => {
+    const result = await userService.uploadAvatar(req.body.userAvatar);
+    res.ResultVO(0, '成功', result);
+});

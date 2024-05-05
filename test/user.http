@@ -14,3 +14,17 @@ Content-Type: application/json
 {
     "userId": "345"
 }
+
+###
+POST http://127.0.0.1:33001/api/user/home/getTypeJob
+Content-Type: application/json
+
+
+###
+POST https://picx.gdmuna.com/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "sideline",
+    "password": "WhG2A1XRGJOWkHcX"
+}

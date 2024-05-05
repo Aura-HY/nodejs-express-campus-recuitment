@@ -1,4 +1,5 @@
 const userDao = require('../dao/userDao');
+const axios = require('axios');
 
 exports.getJobList = async () => {
     const JobList = await userDao.getJobList();
@@ -49,4 +50,43 @@ exports.getResume = async (userId) => {
 exports.addSendResume = async (resumeId, userId, recruitersId) => {
     const sendResume = await userDao.addSendResume(resumeId, userId, recruitersId);
     return sendResume;
+};
+//头像上传
+exports.uploadAvatar = async (userAvatar) => {
+    const response = await axios.post(
+        'https://picx.gdmuna.com/api/auth/login',
+        {
+            username: 'sideline',
+            password: 'WhG2A1XRGJOWkHcX'
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        }
+    );
+
+    const token = response.data.data.token;
+
+    const upload = await axios.put(
+        'https://picx.gdmuna.com/api/fs/put',
+        {
+            file: userAvatar.file
+        },
+        {
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8',
+                'Authorization': token,
+                'Content-Length': userAvatar.size,
+                'File-Path': '/sideline/img/' + userAvatar.name
+            }
+        }
+    );
+    if (upload.data.message === 'success') {
+        const filePath = '/sideline/img/' + userAvatar.name;
+        const file = await userDao.uploadAvatar(userAvatar.userId, filePath);
+        return file;
+    } else {
+        return false;
+    }
 };

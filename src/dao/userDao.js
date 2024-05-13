@@ -262,3 +262,41 @@ exports.deleteMessage = async (messageId) => {
     const sqlParams = [messageId];
     return await db.query(sql, sqlParams);
 };
+
+//景清
+//读取用户的简历
+exports.getUserResumes = async (userId) => {
+    const sql = `
+        SELECT
+            resume_name AS resumeName,
+            user_id AS userId,
+            resume_id AS resumeId
+        FROM
+            Resume
+        WHERE
+            user_id = ?
+    `;
+    const sqlParams = [userId];
+    return await db.query(sql, sqlParams);
+};
+//读取用户简历的详细信息
+exports.getUserResumesInfo = async (resumeId) => {
+    const sql = `
+        SELECT
+        resume_id AS resumeId,
+            resume_name AS resumeName,
+            user_id AS userId,
+            phone,
+            wechat,
+            health_certificate AS healthCertificate,
+            curriculum_vitae AS curriculumVitae,
+            work_experience AS workExperience,
+            honor_certificate AS honorCertificate
+        FROM
+            Resume
+        WHERE
+            resume_id = ?
+    `;
+    const sqlParams = [resumeId];
+    return await db.query(sql, sqlParams);
+};

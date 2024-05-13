@@ -114,3 +114,15 @@ router.post('/login', async (req, res, next) => {
     const result = await authService.login(req.body.userId, req.body.password);
     res.ResultVO(0, '成功', result);
 });
+
+//景清
+//读取用户的简历
+router.post('/getUserResumes', async (req, res, next) => {
+    const result = await userService.getUserResumes(req.body.userId);
+    res.ResultVO(0, '成功', result);
+});
+//读取用户简历的详细信息
+router.post('/getUserResumesInfo', async (req, res, next) => {
+    const result = await userService.getUserResumesInfo(req.body.resumeId);
+    res.ResultVO(0, '成功', result);
+});

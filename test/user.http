@@ -1,18 +1,35 @@
 ### 获取职位列表
-POST http://127.0.0.1:33001/api/user/home/getTypeJob
+POST http://127.0.0.1:33001/api/user/login
 Content-Type: application/json
 
 {
-    "typeId":"4"
+    "userId":"980",
+    "password":"8888888"
 }
 
+### 
+PUT https://picx.gdmuna.com/api/fs/put
+Content-Type: 'application/octet-stream'
 
 ### 获取用户详细信息
-POST http://127.0.0.1:33001/api/user/getResume
+POST http://127.0.0.1:33001/api/user/uploadAvatar
+Content-Type: application/json
+
+###
+POST http://127.0.0.1:33001/api/user/getMessageMan
 Content-Type: application/json
 
 {
     "userId": "345"
+}
+
+###
+POST https://picx.gdmuna.com/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "sideline",
+    "password": "WhG2A1XRGJOWkHcX"
 }
 
 ### 获取用户简历

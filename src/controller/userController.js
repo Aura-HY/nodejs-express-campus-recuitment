@@ -157,8 +157,14 @@ router.post('/addNewResumeInfo', async (req, res, next) => {
     const result = await userService.addNewResumeInfo(resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, userId);
     res.ResultVO(0, '成功', result);
 });
-//读取用户收藏的职位
+// 读取用户收藏的职位
 router.post('/getUserFavoritesJob', async (req, res, next) => {
     const result = await userService.getUserFavoritesJob(req.body.userId);
+    res.ResultVO(0, '成功', result);
+});
+// 修改用户的简历信息
+router.post('/reviseResume', async (req, res, next) => {
+    const { resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, resumeId } = req.body;
+    const result = await userService.reviseResume(resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, resumeId);
     res.ResultVO(0, '成功', result);
 });

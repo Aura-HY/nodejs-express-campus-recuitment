@@ -40,7 +40,7 @@ Content-Type: application/json
     "userId": "345"
 }
 
-### 获取用户简历
+### 读取用户简历的详细信息
 POST http://127.0.0.1:33001/api/user/getUserResumesInfo
 Content-Type: application/json
 
@@ -114,4 +114,24 @@ Content-Type: application/json
 
 {
     "userId": 345
+}
+### 读取用户收藏的职位
+POST http://127.0.0.1:33001/api/user/reviseResume
+Content-Type: application/json
+
+{
+    "resumeName": "陈怡要找工作",
+    "name": "陈怡",
+    "gender": "女",
+    "grade": "2023",
+    "academy": "生工院",
+    "classNumber": "2023级信管1班",
+    "studentId": "20230001",
+    "wechat": "HDUO24",
+    "phone": "12345678901",
+    "healthCertificate":1,
+    "curriculumVitae": "无",
+    "workExperience": "无",
+    "honorCertificate": "无",
+    "resumeId": 6
 }

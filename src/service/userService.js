@@ -160,3 +160,8 @@ exports.getUserFavoritesJob = async (userId) => {
     const getUserFavoritesJob = await userDao.getUserFavoritesJob(userId);
     return getUserFavoritesJob;
 };
+// 修改用户的简历信息
+exports.reviseResume = async (resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, resumeId) => {
+    const reviseResume = await userDao.reviseResume(resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, resumeId);
+    return reviseResume;
+};

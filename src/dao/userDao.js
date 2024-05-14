@@ -283,11 +283,15 @@ exports.getUserResumes = async (userId) => {
 exports.getUserResumesInfo = async (resumeId) => {
     const sql = `
         SELECT
-            resume_id AS resumeId,
             resume_name AS resumeName,
-            user_id AS userId,
-            phone,
+            name,
+            gender,
+            grade,
+            academy,
+            class_number AS classNumber,
+            student_id AS studentId,
             wechat,
+            phone,
             health_certificate AS healthCertificate,
             curriculum_vitae AS curriculumVitae,
             work_experience AS workExperience,
@@ -417,5 +421,30 @@ exports.getUserFavoritesJob = async (userId) => {
         favoritesTable.user_id = 345
     `;
     const sqlParams = [userId];
+    return await db.query(sql, sqlParams);
+};
+// 修改用户的简历信息
+exports.reviseResume = async (resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, resumeId) => {
+    const sql = `
+        UPDATE
+            Resume
+        SET
+            resume_name = ?,
+            name = ?,
+            gender = ?,
+            grade = ?,
+            academy = ?,
+            class_number = ?,
+            student_id = ?,
+            wechat = ?,
+            phone = ?,
+            health_certificate = ?,
+            curriculum_vitae = ?,   
+            work_experience = ?,
+            honor_certificate = ?
+        WHERE
+            resume_id = ? 
+    `;
+    const sqlParams = [resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, resumeId];
     return await db.query(sql, sqlParams);
 };

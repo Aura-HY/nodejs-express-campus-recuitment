@@ -47,3 +47,71 @@ Content-Type: application/json
 {
     "resumeId": 2
 }
+
+### 读取用户的昵称和头像
+POST http://127.0.0.1:33001/api/user/getUserBasic
+Content-Type: application/json
+
+{
+    "userId": 345
+}
+
+### 统计用户收藏的简历份数总数
+POST http://127.0.0.1:33001/api/user/favoritesCollectionsSum
+Content-Type: application/json
+
+{
+    "userId": 345
+}
+
+### 统计用户收藏的简历份数总数
+POST http://127.0.0.1:33001/api/user/sessionSum
+Content-Type: application/json
+
+{
+    "userId": 345
+}
+### 统计用户已投简历总数
+POST http://127.0.0.1:33001/api/user/resumeTrueSum
+Content-Type: application/json
+
+{
+    "userId": 345
+}
+
+### 统计用户待面试总数
+POST http://127.0.0.1:33001/api/user/interviewedSum
+Content-Type: application/json
+
+{
+    "userId": 345
+}
+
+### 统计用户待面试总数
+POST http://127.0.0.1:33001/api/user/addNewResumeInfo
+Content-Type: application/json
+
+{
+    "resumeName": "测试简历",
+    "name": "测试",
+    "gender": "男",
+    "grade": "2018",
+    "academy": "计算机学院",
+    "classNumber": "2018级计算机1班",
+    "studentId": "20180001",
+    "wechat": "wechat",
+    "phone": "12345678901",
+    "healthCertificate":1,
+    "curriculumVitae": "无",
+    "workExperience": "无",
+    "honorCertificate": "无",
+    "userId": 345
+}
+
+### 读取用户收藏的职位
+POST http://127.0.0.1:33001/api/user/getUserFavoritesJob
+Content-Type: application/json
+
+{
+    "userId": 345
+}

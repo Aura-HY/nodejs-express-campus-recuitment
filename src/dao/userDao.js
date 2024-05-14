@@ -264,7 +264,7 @@ exports.deleteMessage = async (messageId) => {
 };
 
 //景清
-//读取用户的简历
+// 读取用户的简历
 exports.getUserResumes = async (userId) => {
     const sql = `
         SELECT
@@ -275,15 +275,15 @@ exports.getUserResumes = async (userId) => {
             Resume
         WHERE
             user_id = ?
-    `;
+        `;
     const sqlParams = [userId];
     return await db.query(sql, sqlParams);
 };
-//读取用户简历的详细信息
+// 读取用户简历的详细信息
 exports.getUserResumesInfo = async (resumeId) => {
     const sql = `
         SELECT
-        resume_id AS resumeId,
+            resume_id AS resumeId,
             resume_name AS resumeName,
             user_id AS userId,
             phone,
@@ -298,5 +298,124 @@ exports.getUserResumesInfo = async (resumeId) => {
             resume_id = ?
     `;
     const sqlParams = [resumeId];
+    return await db.query(sql, sqlParams);
+};
+// 读取用户的昵称和头像
+exports.getUserBasic = async (userId) => {
+    const sql = `
+        SELECT
+            nickname,
+            user_avatar AS userAvatar
+        FROM
+            user_basic_table
+        WHERE
+            user_id = ?
+    `;
+    const sqlParams = [userId];
+    return await db.query(sql, sqlParams);
+};
+// 统计用户收藏的简历份数总数
+exports.favoritesCollectionsSum = async (userId) => {
+    const sql = `
+        SELECT
+            COUNT(*) AS sum
+        FROM
+            favorites_table
+        WHERE
+            user_id = ?
+    `;
+    const sqlParams = [userId];
+    return await db.query(sql, sqlParams);
+};
+// 统计用户沟通过的聊天总数
+exports.resumeTrueSum = async (userId) => {
+    const sql = `
+        SELECT
+            COUNT(*) AS resumeTrueSum
+        FROM
+            Message
+        JOIN
+            user_basic_table
+        ON
+            Message.job_seeker_id = user_basic_table.user_id
+        WHERE
+            user_basic_table.user_id = ?
+    `;
+    const sqlParams = [userId];
+    return await db.query(sql, sqlParams);
+};
+// 统计用户已投简历总数
+exports.sessionSum = async (userId) => {
+    const sql = `
+        SELECT
+            COUNT(*) AS sessionSum
+        FROM
+            resume_submission_status
+        JOIN
+            user_basic_table
+        ON
+            resume_submission_status.user_id = user_basic_table.user_id
+        WHERE
+            user_basic_table.user_id = ? AND resume_status = 1
+        `;
+    const sqlParams = [userId];
+    return await db.query(sql, sqlParams);
+};
+// 统计用户待面试总数
+exports.interviewedSum = async (userId) => {
+    const sql = `
+        SELECT
+            COUNT(*) AS interviewedSum
+        FROM
+            resume_submission_status
+        JOIN
+            user_basic_table
+        ON
+            resume_submission_status.user_id = user_basic_table.user_id
+        WHERE
+            user_basic_table.user_id = ? AND resume_status = 2
+        `;
+    const sqlParams = [userId];
+    return await db.query(sql, sqlParams);
+};
+// 添加用户新简历
+exports.addNewResumeInfo = async (resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, userId) => {
+    const sql = `
+        INSERT INTO
+            Resume(resume_name, name, gender, grade, academy, class_number, student_id, wechat, phone, health_certificate, curriculum_vitae, work_experience, honor_certificate, user_id) 
+        VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    const sqlParams = [resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, userId];
+    return await db.query(sql, sqlParams);
+};
+//读取用户收藏的职位
+exports.getUserFavoritesJob = async (userId) => {
+    const sql = `
+    SELECT
+        favoritesTable.job_id AS jobId,
+        positionJob.title_job AS titleJob,
+        positionJob.job_description AS jobDescription,
+        positionJob.requirement_label AS requirementLabel,
+        positionJob.requirements_l AS requirementsL,
+        positionJob.salary,
+        positionJob.salary_unit AS salaryUnit,
+        positionJob.location,
+        userBasicTable.user_avatar AS userAvatar,
+        userBasicTable.nickname
+    FROM
+        favorites_table AS favoritesTable
+    INNER JOIN
+        position_job AS positionJob
+    ON
+        favoritesTable.job_id = positionJob.job_id
+    INNER JOIN
+        user_basic_table AS userBasicTable
+    ON
+        positionJob.recruiters_id = userBasicTable.user_id
+    WHERE
+        favoritesTable.user_id = 345
+    `;
+    const sqlParams = [userId];
     return await db.query(sql, sqlParams);
 };

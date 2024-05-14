@@ -116,13 +116,49 @@ router.post('/login', async (req, res, next) => {
 });
 
 //景清
-//读取用户的简历
+// 读取用户的简历
 router.post('/getUserResumes', async (req, res, next) => {
     const result = await userService.getUserResumes(req.body.userId);
     res.ResultVO(0, '成功', result);
 });
-//读取用户简历的详细信息
+// 读取用户简历的详细信息
 router.post('/getUserResumesInfo', async (req, res, next) => {
     const result = await userService.getUserResumesInfo(req.body.resumeId);
+    res.ResultVO(0, '成功', result);
+});
+// 读取用户的昵称和头像
+router.post('/getUserBasic', async (req, res, next) => {
+    const result = await userService.getUserBasic(req.body.userId);
+    res.ResultVO(0, '成功', result);
+});
+// 统计用户收藏的简历份数总数
+router.post('/favoritesCollectionsSum', async (req, res, next) => {
+    const result = await userService.favoritesCollectionsSum(req.body.userId);
+    res.ResultVO(0, '成功', result);
+});
+//统计用户沟通过的聊天总数
+router.post('/sessionSum', async (req, res, next) => {
+    const result = await userService.sessionSum(req.body.userId);
+    res.ResultVO(0, '成功', result);
+});
+//统计用户已投简历总数
+router.post('/resumeTrueSum', async (req, res, next) => {
+    const result = await userService.resumeTrueSum(req.body.userId);
+    res.ResultVO(0, '成功', result);
+});
+// 统计用户待面试总数
+router.post('/interviewedSum', async (req, res, next) => {
+    const result = await userService.interviewedSum(req.body.userId);
+    res.ResultVO(0, '成功', result);
+});
+// 添加用户新简历
+router.post('/addNewResumeInfo', async (req, res, next) => {
+    const { resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, userId } = req.body;
+    const result = await userService.addNewResumeInfo(resumeName, name, gender, grade, academy, classNumber, studentId, wechat, phone, healthCertificate, curriculumVitae, workExperience, honorCertificate, userId);
+    res.ResultVO(0, '成功', result);
+});
+//读取用户收藏的职位
+router.post('/getUserFavoritesJob', async (req, res, next) => {
+    const result = await userService.getUserFavoritesJob(req.body.userId);
     res.ResultVO(0, '成功', result);
 });
